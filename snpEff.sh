@@ -13,7 +13,7 @@ set -euo pipefail
 VARIANT=/scratch/global/wcdaraujo/exome/bwasw/variantCalling/
 
 # snpEff - Preditor
-#java -jar /home/wcdaraujo/snpEff/snpEff.jar eff -c /home/wcdaraujo/snpEff/snpEff.config GRCh38.86 ${VARIANT}1_sample.vcf > ${VARIANT}1_sample.eff.vcf
+java -jar /home/wcdaraujo/snpEff/snpEff.jar eff -c /home/wcdaraujo/snpEff/snpEff.config GRCh38.86 ${VARIANT}1_sample.vcf > ${VARIANT}1_sample.eff.vcf
 java -jar /home/wcdaraujo/snpEff/snpEff.jar eff -c /home/wcdaraujo/snpEff/snpEff.config GRCh38.86 ${VARIANT}3_sample.vcf > ${VARIANT}3_sample.eff.vcf
 java -jar /home/wcdaraujo/snpEff/snpEff.jar eff -c /home/wcdaraujo/snpEff/snpEff.config GRCh38.86 ${VARIANT}4_sample.vcf > ${VARIANT}4_sample.eff.vcf
 java -jar /home/wcdaraujo/snpEff/snpEff.jar eff -c /home/wcdaraujo/snpEff/snpEff.config GRCh38.86 ${VARIANT}5_sample.vcf > ${VARIANT}5_sample.eff.vcf
