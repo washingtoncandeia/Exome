@@ -10,14 +10,14 @@
 
 set -euo pipefail
 
-## Samtools: Chamada de Variantes, usando o RMDUP e sem usar opção Index de Samtools  #4
-## Semelhante ao tutorial do curso do Biome
+## Samtools: Chamada de Variantes, usando o RMDUP (#4)
+# É preciso ter feito o mapeamento com bwasw
 
 # Variáveis ambientais
-REF=/scratch/global/wcdaraujo/exome/bwasw/ref/Homo_sapiens_GRCh38_p7_correct.fa 
-SAM=/scratch/global/wcdaraujo/exome/bwasw/sam/
-BAM=/scratch/global/wcdaraujo/exome/bwasw/bam/
-MPILEUP=/scratch/global/wcdaraujo/exome/bwasw/mpileup/
+REF=/scratch/global/wcdaraujo/exome/ref/Homo_sapiens_GRCh38.fa 
+SAM=/scratch/global/wcdaraujo/exome/sam/
+BAM=/scratch/global/wcdaraujo/exome/bam/
+MPILEUP=/scratch/global/wcdaraujo/exome/mpileup/
 
 ## Chamada de Variantes com Samtools
 
@@ -25,15 +25,16 @@ MPILEUP=/scratch/global/wcdaraujo/exome/bwasw/mpileup/
 samtools faidx ${REF} 
 
 # 2. Samtools view para transformar SAM a BAM
-samtools view -b -S ${SAM}1_sample.bwasw.sam -o ${BAM}1_sample.bwasw.bam
-samtools view -b -S ${SAM}3_sample.bwasw.sam -o ${BAM}3_sample.bwasw.bam
-samtools view -b -S ${SAM}4_sample.bwasw.sam -o ${BAM}4_sample.bwasw.bam
-samtools view -b -S ${SAM}5_sample.bwasw.sam -o ${BAM}5_sample.bwasw.bam 
+samtools view -h -b -S ${SAM}1_sample.bwasw.sam -o ${BAM}1_sample.bwasw.bam
+samtools view -h -b -S ${SAM}3_sample.bwasw.sam -o ${BAM}3_sample.bwasw.bam
+samtools view -h -b -S ${SAM}4_sample.bwasw.sam -o ${BAM}4_sample.bwasw.bam
+samtools view -h -b -S ${SAM}5_sample.bwasw.sam -o ${BAM}5_sample.bwasw.bam 
+# -h --> incluir header (cabeçalho) na saída
 # -b --> output no formato BAM
 # -S --> input no formato SAM
 # -o --> nome do arquivo de saída no formato BAM
 
-# 3. Samtools sort: ordenar os alinhamentos/mapeamentos nos arquivos .BAM
+# 3. Samtools sort: ordenar os alinhamentos/mapeamentos por posição no genoma
 samtools sort ${BAM}1_sample.bwasw.bam -o ${BAM}1_sample.bwasw.sorted.bam
 samtools sort ${BAM}3_sample.bwasw.bam -o ${BAM}3_sample.bwasw.sorted.bam
 samtools sort ${BAM}4_sample.bwasw.bam -o ${BAM}4_sample.bwasw.sorted.bam
@@ -50,6 +51,7 @@ samtools rmdup ${BAM}1_sample.bwasw.sorted.bam ${BAM}1_sample.bwasw.sorted.rmdup
 samtools rmdup ${BAM}3_sample.bwasw.sorted.bam ${BAM}3_sample.bwasw.sorted.rmdup.bam
 samtools rmdup ${BAM}4_sample.bwasw.sorted.bam ${BAM}4_sample.bwasw.sorted.rmdup.bam
 samtools rmdup ${BAM}5_sample.bwasw.sorted.bam ${BAM}5_sample.bwasw.sorted.rmdup.bam
+## Opção: não usar rmdup
 
 # 5. Samtools mpileup
 samtools mpileup -f ${REF} ${BAM}1_sample.bwasw.sorted.rmdup.bam > ${MPILEUP}1_sample.mpileup
