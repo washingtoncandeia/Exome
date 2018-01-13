@@ -16,7 +16,7 @@
 ##-------------------------------------------------------------------------------
 
 # 1. Download sequence database Ensembl
-# Homo_sapiens.GRCh38.dna.chromosome.${CHROM}.fa.gz
+
 for CHROM in {1..22} X Y MT;
 do
    wget ftp://ftp.ensembl.org/pub/release-86/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.${CHROM}.fa.gz;
