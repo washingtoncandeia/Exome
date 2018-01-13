@@ -11,7 +11,7 @@
 # Utilizar este arquivo como base para os três scripts
 ##-------------------------------------------------
 # Indexação do genoma de referência e alinhamentos
-# BWA index --> aln --> sampe #1
+# BWA index --> aln --> sampe (#1)
 # Autor: Washington Candeia de Araujo
 # Instituto de Medicina Tropical - IMT - UFRN
 # Data: 09 Jan 2018
