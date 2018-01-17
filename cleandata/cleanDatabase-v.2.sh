@@ -24,32 +24,29 @@ done;
 # 2. Unzip as sequências
 for CHROM in {1..22} X Y MT;
 do
-   gzip -dvc Homo_sapiens.GRCh38.dna.chromosome.${CHROM}.fa.gz; rm Homo_sapiens.GRCh38.dna.chromosome.${CHROM}.fa.gz;
+   gzip -dvc Homo_sapiens.GRCh38.dna.chromosome.${CHROM}.fa.gz >> Homo_sapiens.GRCh38.dna.fa; rm Homo_sapiens.GRCh38.dna.chromosome.${CHROM}.fa.gz;
 done;
 
-# 3. Concatenar com cat
-for CHROM in {1.22} X Y MT; do cat Homo_sapiens.GRCh38.dna.chromosome.${CHROM}.fa >> Homo_sapiens.GRCh38.86.fa; done;
-
-# 4. Retirar do banco de dados (referência Homo sapiens NCBI, GRCh38.p7) os Ns,
+# 3. Retirar do banco de dados (referência Homo sapiens NCBI, GRCh38.p7) os Ns,
 # que levam à ambiguidades:
 
-cat Homo_sapiens.GRCh38.86.fa | perl -p -e 's/Nn/N/' | perl -p -e 's/^N+//;s/N+$//;s/N{200,}/n>splitn/' > Homo_sapiens.GRCh38.86.split.fa  
+#cat Homo_sapiens.GRCh38.86.fa | perl -p -e 's/Nn/N/' | perl -p -e 's/^N+//;s/N+$//;s/N{200,}/n>splitn/' > Homo_sapiens.GRCh38.86.split.fa  
 
 # Após isso, usar biopython para corrigir arquivo fasta e levá-lo a ser usado por prinseq
 
-# 5. Biopython corrigir fasta
+# 4. Biopython corrigir fasta
 # python fastaCorrect.py
 # Lembrar de mudar os nomes dos arquivos. 
 
 # 5. Prinseq para limpeza
-perl prinseq-lite.pl -log -verbose -fasta Homo_sapiens.GRCh38.86.split.fa \ 
-    -min_len 200 \ 
-    -ns_max_p 10 \ 
-    -derep 12345 \ 
-    -out_good Homo_sapiens.GRCh38.86.split_prinseq \ 
-    -seq_id Homo_sapiens.GRCh38.86. \ 
-    -rm_header \ 
-    -out_bad null
+#perl prinseq-lite.pl -log -verbose -fasta Homo_sapiens.GRCh38.86.split.fa \ 
+#    -min_len 200 \ 
+#    -ns_max_p 10 \ 
+#    -derep 12345 \ 
+#    -out_good Homo_sapiens.GRCh38.86.split_prinseq \ 
+#    -seq_id Homo_sapiens.GRCh38.86. \ 
+#    -rm_header \ 
+#    -out_bad null
     
 ## Opções de prinseq :
 # -log --> Arquivo de log para acompanhar parâmetros, erros, etc. O nome do arquivo de log é opcional.
