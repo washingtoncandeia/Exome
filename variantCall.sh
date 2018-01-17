@@ -6,7 +6,7 @@
 ##SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=32
 #SBATCH --hint=compute_bound
-#SBATCH --time=7-0:0
+#SBATCH --time=12-0:0
 
 ##-------------------------------------------------
 # Indexação do genoma de referência e alinhamentos
@@ -95,8 +95,8 @@ samtools mpileup -f ${REF} ${BAM}5_sample.mem.sorted.rmdup.bam > ${MPILEUP}5_sam
 
 ## Varscan
 # Procedendo ao uso de VarScan
-java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}1_sample.mpileup --output-vcf --strand-filter 0 > ${VARIANT}1_sample.vcf
-java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}3_sample.mpileup --output-vcf --strand-filter 0 > ${VARIANT}3_sample.vcf
-java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}4_sample.mpileup --output-vcf --strand-filter 0 > ${VARIANT}4_sample.vcf
-java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}5_sample.mpileup --output-vcf --strand-filter 0 > ${VARIANT}5_sample.vcf
+java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}1_sample.mpileup --output-vcf --strand-filter 0 > ${VARIANT}1_sample.vcf
+java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}3_sample.mpileup --output-vcf --strand-filter 0 > ${VARIANT}3_sample.vcf
+java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}4_sample.mpileup --output-vcf --strand-filter 0 > ${VARIANT}4_sample.vcf
+java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}5_sample.mpileup --output-vcf --strand-filter 0 > ${VARIANT}5_sample.vcf
 
