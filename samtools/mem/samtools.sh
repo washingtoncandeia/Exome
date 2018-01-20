@@ -41,10 +41,10 @@ samtools sort ${BAM}4_sample.mem.bam -o ${BAM}4_sample.mem.sorted.bam
 samtools sort ${BAM}5_sample.mem.bam -o ${BAM}5_sample.mem.sorted.bam
 
 # 4. Samtools index
-# samtools index ${BAM}1_sample.mem.sorted.bam ${BAM}1_sample.mem.sorted.bam.bai
-# samtools index ${BAM}3_sample.mem.sorted.bam ${BAM}3_sample.mem.sorted.bam.bai
-# samtools index ${BAM}4_sample.mem.sorted.bam ${BAM}4_sample.mem.sorted.bam.bai
-# samtools index ${BAM}5_sample.mem.sorted.bam ${BAM}5_sample.mem.sorted.bam.bai
+samtools index ${BAM}1_sample.mem.sorted.bam
+samtools index ${BAM}3_sample.mem.sorted.bam
+samtools index ${BAM}4_sample.mem.sorted.bam
+samtools index ${BAM}5_sample.mem.sorted.bam
 
 ## 4.1. Visualizar:
 # samtools tview 1_sample.mem.sorted.bam.bai ${REF}

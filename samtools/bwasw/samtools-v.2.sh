@@ -1,23 +1,23 @@
 #!/bin/bash
-#SBATCH --job-name=Samtools
+#SBATCH --job-name=Sam2
 #SBATCH --output=slurm%j.out
 #SBATCH --error=slurm%j.err 
-#SBATCH --nodes=4
+#SBATCH --nodes=1
 ##SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=32
 #SBATCH --hint=compute_bound
-#SBATCH --time=7-0:0
+#SBATCH --time=10-0:0
 
 set -euo pipefail
 
 ## Samtools: Chamada de Variantes, usando o RMDUP (#4)
-# É preciso ter feito o mapeamento com bwasw ou mem
+# É preciso ter feito o mapeamento com bwasw 
 
 # Variáveis ambientais
-REF=/scratch/global/wcdaraujo/exome/ref/Homo_sapiens_GRCh38.fa 
-SAM=/scratch/global/wcdaraujo/exome/sam/
-BAM=/scratch/global/wcdaraujo/exome/bam/
-MPILEUP=/scratch/global/wcdaraujo/exome/mpileup/
+REF=/scratch/global/wcdaraujo/exome/ref/Homo_sapiens.GRCh37.75.dna.fa
+SAM=/scratch/global/wcdaraujo/exome/bwasw/sam/
+BAM=/scratch/global/wcdaraujo/exome/bwasw/bam/
+MPILEUP=/scratch/global/wcdaraujo/exome/bwasw/mpileup/
 
 ## Chamada de Variantes com Samtools
 
@@ -58,8 +58,4 @@ samtools mpileup -f ${REF} ${BAM}1_sample.bwasw.sorted.rmdup.bam > ${MPILEUP}1_s
 samtools mpileup -f ${REF} ${BAM}3_sample.bwasw.sorted.rmdup.bam > ${MPILEUP}3_sample.mpileup
 samtools mpileup -f ${REF} ${BAM}4_sample.bwasw.sorted.rmdup.bam > ${MPILEUP}4_sample.mpileup
 samtools mpileup -f ${REF} ${BAM}5_sample.bwasw.sorted.rmdup.bam > ${MPILEUP}5_sample.mpileup
-
-
-
-
 
