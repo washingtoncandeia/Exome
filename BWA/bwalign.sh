@@ -45,8 +45,8 @@ bwa aln ${REF} ${SAMPLE5}5_R1.fastq.gz > ${ALN}5_R1_aln.sai
 bwa aln ${REF} ${SAMPLE5}5_R2.fastq.gz > ${ALN}5_R2_aln.sai
 
 # 2b. Sampe para gerar alinhamentos paired end no formato SAM
-bwa sampe ${REF} ${ALN}1_R1_aln.sai ${ALN}1_R2_aln.sai ${SAMPLE1}1_R1.fastq.gz ${SAMPLE1}1_R2.fastq.gz > ${SAM}1_sample.bwa.sam
-bwa sampe ${REF} ${ALN}3_R1_aln.sai ${ALN}3_R2_aln.sai ${SAMPLE3}3_R1.fastq.gz ${SAMPLE3}3_R2.fastq.gz > ${SAM}3_sample.bwa.sam
-bwa sampe ${REF} ${ALN}4_R1_aln.sai ${ALN}4_R2_aln.sai ${SAMPLE4}4_R1.fastq.gz ${SAMPLE4}4_R2.fastq.gz > ${SAM}4_sample.bwa.sam
-bwa sampe ${REF} ${ALN}5_R1_aln.sai ${ALN}5_R2_aln.sai ${SAMPLE5}5_R1.fastq.gz ${SAMPLE5}5_R2.fastq.gz > ${SAM}5_sample.bwa.sam
+bwa sampe ${REF} ${ALN}1_R1_aln.sai ${ALN}1_R2_aln.sai ${SAMPLE1}1_R1.fastq.gz ${SAMPLE1}1_R2.fastq.gz > ${SAM}1_sample.bwasw.sam
+bwa sampe ${REF} ${ALN}3_R1_aln.sai ${ALN}3_R2_aln.sai ${SAMPLE3}3_R1.fastq.gz ${SAMPLE3}3_R2.fastq.gz > ${SAM}3_sample.bwasw.sam
+bwa sampe ${REF} ${ALN}4_R1_aln.sai ${ALN}4_R2_aln.sai ${SAMPLE4}4_R1.fastq.gz ${SAMPLE4}4_R2.fastq.gz > ${SAM}4_sample.bwasw.sam
+bwa sampe ${REF} ${ALN}5_R1_aln.sai ${ALN}5_R2_aln.sai ${SAMPLE5}5_R1.fastq.gz ${SAMPLE5}5_R2.fastq.gz > ${SAM}5_sample.bwasw.sam
 
