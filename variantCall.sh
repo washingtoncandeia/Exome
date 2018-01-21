@@ -61,10 +61,10 @@ samtools view -h -b -S ${SAM}5_sample.mem.sam -o ${BAM}5_sample.mem.bam
 # -o --> nome do arquivo de saída no formato BAM
 
 # 3. Samtools sort: ordenar os alinhamentos/mapeamentos por posição no genoma
-samtools sort ${BAM}1_sample.mem.bam -o ${BAM}1_sample.mem.sorted
-samtools sort ${BAM}3_sample.mem.bam -o ${BAM}3_sample.mem.sorted
-samtools sort ${BAM}4_sample.mem.bam -o ${BAM}4_sample.mem.sorted
-samtools sort ${BAM}5_sample.mem.bam -o ${BAM}5_sample.mem.sorted
+samtools sort ${BAM}1_sample.mem.bam -o ${BAM}1_sample.mem.sorted.bam
+samtools sort ${BAM}3_sample.mem.bam -o ${BAM}3_sample.mem.sorted.bam
+samtools sort ${BAM}4_sample.mem.bam -o ${BAM}4_sample.mem.sorted.bam
+samtools sort ${BAM}5_sample.mem.bam -o ${BAM}5_sample.mem.sorted.bam
 
 # 4. Samtools index
 samtools index ${BAM}1_sample.mem.sorted.bam 
