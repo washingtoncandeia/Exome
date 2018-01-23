@@ -10,7 +10,7 @@
 
 ##-------------------------------------------------
 # Indexação do genoma de referência e alinhamentos
-# BWA mem --> samtools  (#3)
+# BWA mem --> samtools  (#3) - Pipes
 # Autor: Washington Candeia de Araujo
 # Instituto de Medicina Tropical - IMT - UFRN
 # Data: 23 Jan 2018
