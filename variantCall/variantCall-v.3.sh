@@ -92,12 +92,10 @@ samtools rmdup ${BAM}5_sample.mem.sorted.bam ${BAM}5_sample.mem.sorted.rmdup.bam
 samtools mpileup -f ${REF} ${BAM}1_sample.mem.sorted.rmdup.bam ${BAM}3_sample.mem.sorted.rmdup.bam ${BAM}4_sample.mem.sorted.rmdup.bam ${BAM}5_sample.mem.sorted.rmdup.bam > ${MPILEUP}allSamples.mpileup
 
 # Exemplo de uso para economizar espaço:
-# samtools mpileup -B -f ${REF} ${BAM}1_sample.mem.sorted.rmdup.bam | java -jar VarScan.v2.2.jar mpileup2snp --output-vcf 1 --strand-filter 0 > ${VARIANT}1_sample.vcf
-
 # samtools mpileup -f ${REF} ${BAM}1_sample.mem.sorted.rmdup.bam ${BAM}3_sample.mem.sorted.rmdup.bam ${BAM}4_sample.mem.sorted.rmdup.bam ${BAM}5_sample.mem.sorted.rmdup.bam | java -jar VarScan.v2.2.jar pileup2snp
 
 ## Varscan
 # Procedendo ao uso de VarScan
-java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0 
-# java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}1_sample.vcf
+java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0 
+# java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}1_sample.vcf
 
