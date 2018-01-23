@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --job-name=MapSamVar
+#SBATCH --job-name=VarCall3
 #SBATCH --output=slurm%j.out
 #SBATCH --error=slurm%j.err 
-#SBATCH --nodes=4
+#SBATCH --nodes=2
 ##SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=32
 #SBATCH --hint=compute_bound
@@ -10,7 +10,7 @@
 
 ##-------------------------------------------------
 # Indexação do genoma de referência e alinhamentos
-# BWA mem --> samtools  (#3)
+# BWA mem --> samtools  (#3) - Pipes
 # Autor: Washington Candeia de Araujo
 # Instituto de Medicina Tropical - IMT - UFRN
 # Data: 23 Jan 2018
@@ -19,7 +19,7 @@ set -euo pipefail
 
 # Variáveis 
 
-# Variáveis ambientais
+# Variaveis ambientais
 REF=/scratch/global/wcdaraujo/exome/ref/GRCh38.86/Homo_sapiens_GRCh38.86.fa 
 SAMPLE1=/scratch/global/wcdaraujo/exome/1_sample/
 SAMPLE3=/scratch/global/wcdaraujo/exome/3_sample/
@@ -54,14 +54,14 @@ samtools faidx ${REF}
 
 # 2. Samtools view para converter SAM a BAM
 samtools view -h -b -S -F4 ${SAM}1_sample.mem.sam -o ${BAM}1_sample.mem.bam
-samtools view -h -b -S ${SAM}3_sample.mem.sam -o ${BAM}3_sample.mem.bam
-samtools view -h -b -S ${SAM}4_sample.mem.sam -o ${BAM}4_sample.mem.bam
-samtools view -h -b -S ${SAM}5_sample.mem.sam -o ${BAM}5_sample.mem.bam 
+samtools view -h -b -S -F4 ${SAM}3_sample.mem.sam -o ${BAM}3_sample.mem.bam
+samtools view -h -b -S -F4 ${SAM}4_sample.mem.sam -o ${BAM}4_sample.mem.bam
+samtools view -h -b -S -F4 ${SAM}5_sample.mem.sam -o ${BAM}5_sample.mem.bam 
 # -h --> incluir header (cabeçalho) na saída
 # -b --> output no formato BAM
 # -S --> input no formato SAM
 # -o --> nome do arquivo de saída no formato BAM
-# -F 4 --> retirar o que não mapeou
+# -F4 --> retirar o que não mapeou
 
 # 3. Samtools sort: ordenar os alinhamentos/mapeamentos por posição no genoma
 samtools sort ${BAM}1_sample.mem.bam -o ${BAM}1_sample.mem.sorted.bam
@@ -89,17 +89,23 @@ samtools rmdup ${BAM}5_sample.mem.sorted.bam ${BAM}5_sample.mem.sorted.rmdup.bam
 ## Opção: não usar rmdup
 
 # 6. Samtools mpileup: Chamada de Variantes
-samtools mpileup -f ${REF} ${BAM}1_sample.mem.sorted.rmdup.bam > ${MPILEUP}1_sample.mpileup
-samtools mpileup -f ${REF} ${BAM}3_sample.mem.sorted.rmdup.bam > ${MPILEUP}3_sample.mpileup
-samtools mpileup -f ${REF} ${BAM}4_sample.mem.sorted.rmdup.bam > ${MPILEUP}4_sample.mpileup
-samtools mpileup -f ${REF} ${BAM}5_sample.mem.sorted.rmdup.bam > ${MPILEUP}5_sample.mpileup
-# Exemplo de uso para economizar espaço:
-# samtools mpileup -B -f ${REF} ${BAM}1_sample.mem.sorted.rmdup.bam | java -jar VarScan.v2.2.jar mpileup2snp --output-vcf 1 --strand-filter 0 > ${VARIANT}1_sample.vcf
+samtools mpileup -f ${REF} \ 
+                    ${BAM}1_sample.mem.sorted.rmdup.bam \ 
+                    ${BAM}3_sample.mem.sorted.rmdup.bam \ 
+                    ${BAM}4_sample.mem.sorted.rmdup.bam \ 
+                    ${BAM}5_sample.mem.sorted.rmdup.bam \ 
+                    > ${MPILEUP}allSamples.mpileup 
 
-## Varscan
-# Procedendo ao uso de VarScan
-java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}1_sample.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}1_sample.vcf
-java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}3_sample.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}3_sample.vcf
-java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}4_sample.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}4_sample.vcf
-java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}5_sample.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}5_sample.vcf
+##-----------------------------------------------------------------------------------------------------
+# Etapas 6 e 7, exemplo de uso para economizar espaço:
+#samtools mpileup -f ${REF} \ 
+#                    ${BAM}1_sample.mem.sorted.rmdup.bam \ 
+#                    ${BAM}3_sample.mem.sorted.rmdup.bam \ 
+#                    ${BAM}4_sample.mem.sorted.rmdup.bam \ 
+#                    ${BAM}5_sample.mem.sorted.rmdup.bam | java -jar VarScan.v2.2.jar mpileup2snp
+##-----------------------------------------------------------------------------------------------------
+
+# 7. Procedendo ao uso de VarScan para todas as amostras unidas
+java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0
+# java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}allSamples.vcf
 
