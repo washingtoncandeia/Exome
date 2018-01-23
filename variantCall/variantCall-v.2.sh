@@ -42,6 +42,7 @@ bwa mem -t 32 ${REF} ${SAMPLE5}5_R1.fastq.gz ${SAMPLE5}5_R2.fastq.gz > ${SAM}5_s
 ## Opção
 # bwa mem -t 32 ${REF} ${SAMPLE1}1_R1.fastq.gz ${SAMPLE1}1_R2.fastq.gz -f ${SAM}1_sample.mem.sam
 
+## Usar Pipes em de saída BWA --> entrada Samtools:
 # bwa mem -t 32 ${REF} ${SAMPLE1}1_R1.fastq.gz ${SAMPLE1}1_R2.fastq.gz | samtools view -h -b -S -F4 - > ${BAM}1_sample.mem.bam
 
 ## Samtools: Chamada de Variantes, usando o RMDUP (#4)
