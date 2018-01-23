@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --job-name=MapSamVar
+#SBATCH --job-name=VarCall3
 #SBATCH --output=slurm%j.out
 #SBATCH --error=slurm%j.err 
-#SBATCH --nodes=4
+#SBATCH --nodes=2
 ##SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=32
 #SBATCH --hint=compute_bound
@@ -19,7 +19,7 @@ set -euo pipefail
 
 # Variáveis 
 
-# Variáveis ambientais
+# Variaveis ambientais
 REF=/scratch/global/wcdaraujo/exome/ref/GRCh38.86/Homo_sapiens_GRCh38.86.fa 
 SAMPLE1=/scratch/global/wcdaraujo/exome/1_sample/
 SAMPLE3=/scratch/global/wcdaraujo/exome/3_sample/
@@ -89,13 +89,23 @@ samtools rmdup ${BAM}5_sample.mem.sorted.bam ${BAM}5_sample.mem.sorted.rmdup.bam
 ## Opção: não usar rmdup
 
 # 6. Samtools mpileup: Chamada de Variantes
-samtools mpileup -f ${REF} ${BAM}1_sample.mem.sorted.rmdup.bam ${BAM}3_sample.mem.sorted.rmdup.bam ${BAM}4_sample.mem.sorted.rmdup.bam ${BAM}5_sample.mem.sorted.rmdup.bam > ${MPILEUP}allSamples.mpileup
+samtools mpileup -f ${REF} \ 
+                    ${BAM}1_sample.mem.sorted.rmdup.bam \ 
+                    ${BAM}3_sample.mem.sorted.rmdup.bam \ 
+                    ${BAM}4_sample.mem.sorted.rmdup.bam \ 
+                    ${BAM}5_sample.mem.sorted.rmdup.bam \ 
+                    > ${MPILEUP}allSamples.mpileup 
 
-# Exemplo de uso para economizar espaço:
-# samtools mpileup -f ${REF} ${BAM}1_sample.mem.sorted.rmdup.bam ${BAM}3_sample.mem.sorted.rmdup.bam ${BAM}4_sample.mem.sorted.rmdup.bam ${BAM}5_sample.mem.sorted.rmdup.bam | java -jar VarScan.v2.2.jar pileup2snp
+##-----------------------------------------------------------------------------------------------------
+# Etapas 6 e 7, exemplo de uso para economizar espaço:
+#samtools mpileup -f ${REF} \ 
+#                    ${BAM}1_sample.mem.sorted.rmdup.bam \ 
+#                    ${BAM}3_sample.mem.sorted.rmdup.bam \ 
+#                    ${BAM}4_sample.mem.sorted.rmdup.bam \ 
+#                    ${BAM}5_sample.mem.sorted.rmdup.bam | java -jar VarScan.v2.2.jar mpileup2snp
+##-----------------------------------------------------------------------------------------------------
 
-## Varscan
-# Procedendo ao uso de VarScan
-java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0 
-# java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}1_sample.vcf
+# 7. Procedendo ao uso de VarScan para todas as amostras unidas
+java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0
+# java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}allSamples.vcf
 
