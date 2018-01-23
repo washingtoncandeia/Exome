@@ -22,7 +22,7 @@ VARIANT=/scratch/global/wcdaraujo/exome/variantCalling/
 
 # 1. Uso de bcftools para BCF
 
-samtools mpileup -u -tDP -f ${REF} ${BAM}1_sample.mem.sorted.rmdup.bam | bcftools view -bvcg - > variant_sample1.raw.bcf
+samtools mpileup -u -tDP -f ${REF} ${BAM}1_sample.mem.sorted.rmdup.bam | bcftools view -vcg - > variant_sample1.raw.bcf
 
 #2. Trasnformar em VCF
 bcftools view variant_sample1.raw.bcf > 1_sample.variant.vcf
