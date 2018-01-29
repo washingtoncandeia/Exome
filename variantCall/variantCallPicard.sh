@@ -66,7 +66,7 @@ samtools view -h -b -S ${SAM}5_sample.mem.sam -o ${BAM}5_sample.mem.bam
 java -jar picard.jar AddOrReplaceReadGroups \ 
       I=${BAM}1_sample.mem.bam \ 
       O=${BAM}1_sample.mem.picard.bam \ 
-      RGID=sample1 \ 
+      RGID=01 \ 
       RGLB=lib1 \ 
       RGPL=illumina \ 
       RGPU=unit1 \ 
@@ -76,7 +76,7 @@ java -jar picard.jar AddOrReplaceReadGroups \
 java -jar picard.jar AddOrReplaceReadGroups \ 
       I=${BAM}3_sample.mem.bam \ 
       O=${BAM}3_sample.mem.picard.bam \ 
-      RGID=sample3 \ 
+      RGID=03 \ 
       RGLB=lib1 \ 
       RGPL=illumina \ 
       RGPU=unit1 \ 
@@ -86,7 +86,7 @@ java -jar picard.jar AddOrReplaceReadGroups \
 java -jar picard.jar AddOrReplaceReadGroups \ 
       I=${BAM}4_sample.mem.bam \ 
       O=${BAM}4_sample.mem.picard.bam \ 
-      RGID=sample4 \ 
+      RGID=04 \ 
       RGLB=lib1 \ 
       RGPL=illumina \ 
       RGPU=unit1 \ 
@@ -95,7 +95,7 @@ java -jar picard.jar AddOrReplaceReadGroups \
 java -jar picard.jar picard AddOrReplaceReadGroups \ 
       I=${BAM}5_sample.mem.bam \ 
       O=${BAM}5_sample.mem.picard.bam \ 
-      RGID=sample5 \ 
+      RGID=05 \ 
       RGLB=lib1 \ 
       RGPL=illumina \ 
       RGPU=unit1 \ 
