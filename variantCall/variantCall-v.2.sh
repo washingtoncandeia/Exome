@@ -107,6 +107,9 @@ samtools mpileup -f ${REF} \
 ##-----------------------------------------------------------------------------------------------------
 
 # 7. Procedendo ao uso de VarScan para todas as amostras unidas
-java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0
-# java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}allSamples.vcf
+java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0 > ${VCF}allSamples.vcf
+
+# 8. snpEff - Preditor
+java -jar /home/wcdaraujo/snpEff/snpEff.jar ann -c /home/wcdaraujo/snpEff/snpEff.config GRCh38.86 ${VCF}allSamples.vcf > ${VARIANT}allSamples.eff.vcf
+
 

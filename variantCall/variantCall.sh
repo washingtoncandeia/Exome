@@ -35,10 +35,10 @@ VARIANT=/scratch/global/wcdaraujo/exome/variantCalling/
 bwa index -a bwtsw ${REF}
 
 # Mapear com MEM
-bwa mem -t 32 ${REF} ${SAMPLE1}1_R1.fastq.gz ${SAMPLE1}1_R2.fastq.gz > ${SAM}1_sample.mem.sam
-bwa mem -t 32 ${REF} ${SAMPLE3}3_R1.fastq.gz ${SAMPLE3}3_R2.fastq.gz > ${SAM}3_sample.mem.sam
-bwa mem -t 32 ${REF} ${SAMPLE4}4_R1.fastq.gz ${SAMPLE4}4_R2.fastq.gz > ${SAM}4_sample.mem.sam
-bwa mem -t 32 ${REF} ${SAMPLE5}5_R1.fastq.gz ${SAMPLE5}5_R2.fastq.gz > ${SAM}5_sample.mem.sam
+bwa mem -t 64 ${REF} ${SAMPLE1}1_R1.fastq.gz ${SAMPLE1}1_R2.fastq.gz > ${SAM}1_sample.mem.sam
+bwa mem -t 64 ${REF} ${SAMPLE3}3_R1.fastq.gz ${SAMPLE3}3_R2.fastq.gz > ${SAM}3_sample.mem.sam
+bwa mem -t 64 ${REF} ${SAMPLE4}4_R1.fastq.gz ${SAMPLE4}4_R2.fastq.gz > ${SAM}4_sample.mem.sam
+bwa mem -t 64 ${REF} ${SAMPLE5}5_R1.fastq.gz ${SAMPLE5}5_R2.fastq.gz > ${SAM}5_sample.mem.sam
 ## Opção
 # bwa mem -t 32 ${REF} ${SAMPLE1}1_R1.fastq.gz ${SAMPLE1}1_R2.fastq.gz -f ${SAM}1_sample.mem.sam
 
@@ -103,10 +103,10 @@ samtools mpileup -f ${REF} \
 
 ## 7. VarScan
 # 7a. Procedendo ao uso de VarScan para cada amostra
-java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}1_sample.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}1_sample.vcf
-java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}3_sample.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}3_sample.vcf
-java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}4_sample.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}4_sample.vcf
-java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}5_sample.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}5_sample.vcf
+java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}1_sample.mpileup --output-vcf 1 --strand-filter 0 > ${VCF}1_sample.vcf
+java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}3_sample.mpileup --output-vcf 1 --strand-filter 0 > ${VCF}3_sample.vcf
+java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}4_sample.mpileup --output-vcf 1 --strand-filter 0 > ${VCF}4_sample.vcf
+java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}5_sample.mpileup --output-vcf 1 --strand-filter 0 > ${VCF}5_sample.vcf
 
 ##-----------------------------------------------------------------------------------------------------
 # Etapas 6b e 7b, exemplo de uso para economizar espaço:
@@ -118,6 +118,8 @@ java -jar VarScan.v2.4.3.jar pileup2snp ${MPILEUP}5_sample.mpileup --output-vcf 
 ##-----------------------------------------------------------------------------------------------------
 
 # 7b. Procedendo ao uso de VarScan para todas as amostras unidas
-java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0
-# java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0 > ${VARIANT}allSamples.vcf
+java -jar VarScan.v2.4.3.jar mpileup2snp ${MPILEUP}allSamples.mpileup --output-vcf 1 --strand-filter 0 > ${VCF}allSamples.vcf
+
+# 8. snpEff - Preditor
+java -jar /home/wcdaraujo/snpEff/snpEff.jar ann -c /home/wcdaraujo/snpEff/snpEff.config GRCh38.86 ${VCF}allSamples.vcf > ${VARIANT}allSamples.eff.vcf
 
