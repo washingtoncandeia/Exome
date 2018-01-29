@@ -44,47 +44,6 @@ bwa mem -t 64 ${REF} ${SAMPLE5}5_R1.fastq.gz ${SAMPLE5}5_R2.fastq.gz -f ${SAM}5_
 
 # bwa mem -t 32 ${REF} ${SAMPLE1}1_R1.fastq.gz ${SAMPLE1}1_R2.fastq.gz | samtools view -h -b -S -F4 - > ${BAM}1_sample.mem.bam
 
-## Picard tools
-java -jar picard.jar AddOrReplaceReadGroups \ 
-      I=${SAM}1_sample.mem.sam \ 
-      O=${SAM}1_sample.mem.picard.sam \ 
-      RGID=sample1 \ 
-      RGLB=lib1 \ 
-      RGPL=illumina \ 
-      RGPU=unit1 \ 
-      RGSM=sample1
-
-
-java -jar picard.jar AddOrReplaceReadGroups \ 
-      I=${SAM}3_sample.mem.sam \ 
-      O=${SAM}3_sample.mem.picard.sam \ 
-      RGID=sample3 \ 
-      RGLB=lib1 \ 
-      RGPL=illumina \ 
-      RGPU=unit1 \ 
-      RGSM=sample3
-
-
-java -jar picard.jar AddOrReplaceReadGroups \ 
-      I=${SAM}4_sample.mem.sam \ 
-      O=${SAM}4_sample.mem.picard.sam \ 
-      RGID=sample4 \ 
-      RGLB=lib1 \ 
-      RGPL=illumina \ 
-      RGPU=unit1 \ 
-      RGSM=sample4
-
-java -jar picard.jar picard AddOrReplaceReadGroups \ 
-      I=${SAM}5_sample.mem.sam \ 
-      O=${SAM}5_sample.mem.picard.sam \ 
-      RGID=sample5 \ 
-      RGLB=lib1 \ 
-      RGPL=illumina \ 
-      RGPU=unit1 \ 
-      RGSM=sample5
-
-
-
 ## Samtools: Chamada de Variantes, usando o RMDUP (#4)
 # É preciso ter feito o mapeamento com BWA mem
 
@@ -94,20 +53,62 @@ java -jar picard.jar picard AddOrReplaceReadGroups \
 #samtools faidx ${REF} 
 
 # 2. Samtools view para converter SAM a BAM
-samtools view -h -b -S ${SAM}1_sample.mem.picard.sam -o ${BAM}1_sample.mem.bam
-samtools view -h -b -S ${SAM}3_sample.mem.picard.sam -o ${BAM}3_sample.mem.bam
-samtools view -h -b -S ${SAM}4_sample.mem.picard.sam -o ${BAM}4_sample.mem.bam
-samtools view -h -b -S ${SAM}5_sample.mem.picard.sam -o ${BAM}5_sample.mem.bam 
+samtools view -h -b -S ${SAM}1_sample.mem.sam -o ${BAM}1_sample.mem.bam
+samtools view -h -b -S ${SAM}3_sample.mem.sam -o ${BAM}3_sample.mem.bam
+samtools view -h -b -S ${SAM}4_sample.mem.sam -o ${BAM}4_sample.mem.bam
+samtools view -h -b -S ${SAM}5_sample.mem.sam -o ${BAM}5_sample.mem.bam 
 # -h --> incluir header (cabeçalho) na saída
 # -b --> output no formato BAM
 # -S --> input no formato SAM
 # -o --> nome do arquivo de saída no formato BAM
 
+## Picard tools
+java -jar picard.jar AddOrReplaceReadGroups \ 
+      I=${BAM}1_sample.mem.bam \ 
+      O=${BAM}1_sample.mem.picard.bam \ 
+      RGID=sample1 \ 
+      RGLB=lib1 \ 
+      RGPL=illumina \ 
+      RGPU=unit1 \ 
+      RGSM=sample1
+
+
+java -jar picard.jar AddOrReplaceReadGroups \ 
+      I=${BAM}3_sample.mem.bam \ 
+      O=${BAM}3_sample.mem.picard.bam \ 
+      RGID=sample3 \ 
+      RGLB=lib1 \ 
+      RGPL=illumina \ 
+      RGPU=unit1 \ 
+      RGSM=sample3
+
+
+java -jar picard.jar AddOrReplaceReadGroups \ 
+      I=${BAM}4_sample.mem.bam \ 
+      O=${BAM}4_sample.mem.picard.bam \ 
+      RGID=sample4 \ 
+      RGLB=lib1 \ 
+      RGPL=illumina \ 
+      RGPU=unit1 \ 
+      RGSM=sample4
+
+java -jar picard.jar picard AddOrReplaceReadGroups \ 
+      I=${BAM}5_sample.mem.bam \ 
+      O=${BAM}5_sample.mem.picard.bam \ 
+      RGID=sample5 \ 
+      RGLB=lib1 \ 
+      RGPL=illumina \ 
+      RGPU=unit1 \ 
+      RGSM=sample5
+
+
+
+
 # 3. Samtools sort: ordenar os alinhamentos/mapeamentos por posição no genoma
-samtools sort ${BAM}1_sample.mem.bam -o ${BAM}1_sample.mem.sorted.bam
-samtools sort ${BAM}3_sample.mem.bam -o ${BAM}3_sample.mem.sorted.bam
-samtools sort ${BAM}4_sample.mem.bam -o ${BAM}4_sample.mem.sorted.bam
-samtools sort ${BAM}5_sample.mem.bam -o ${BAM}5_sample.mem.sorted.bam
+samtools sort ${BAM}1_sample.mem.picard.bam -o ${BAM}1_sample.mem.sorted.bam
+samtools sort ${BAM}3_sample.mem.picard.bam -o ${BAM}3_sample.mem.sorted.bam
+samtools sort ${BAM}4_sample.mem.picard.bam -o ${BAM}4_sample.mem.sorted.bam
+samtools sort ${BAM}5_sample.mem.picard.bam -o ${BAM}5_sample.mem.sorted.bam
 
 # 4. Samtools index
 samtools index ${BAM}1_sample.mem.sorted.bam 
