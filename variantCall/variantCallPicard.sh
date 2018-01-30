@@ -63,42 +63,42 @@ samtools view -h -b -S ${SAM}5_sample.mem.sam -o ${BAM}5_sample.mem.bam
 # -o --> nome do arquivo de saída no formato BAM
 
 ## Picard tools
-java -jar picard.jar AddOrReplaceReadGroups \ 
-      I=${BAM}1_sample.mem.bam \ 
-      O=${BAM}1_sample.mem.picard.bam \ 
-      RGID=01 \ 
-      RGLB=lib1 \ 
-      RGPL=illumina \ 
-      RGPU=unit1 \ 
+java -jar picard.jar AddOrReplaceReadGroups \
+      I=${BAM}1_sample.mem.bam \
+      O=${BAM}1_sample.mem.picard.bam \
+      RGID=01 \
+      RGLB=lib1 \
+      RGPL=illumina \
+      RGPU=unit1 \
       RGSM=sample1
 
 
-java -jar picard.jar AddOrReplaceReadGroups \ 
-      I=${BAM}3_sample.mem.bam \ 
-      O=${BAM}3_sample.mem.picard.bam \ 
-      RGID=03 \ 
-      RGLB=lib1 \ 
-      RGPL=illumina \ 
-      RGPU=unit1 \ 
+java -jar picard.jar AddOrReplaceReadGroups \
+      I=${BAM}3_sample.mem.bam \
+      O=${BAM}3_sample.mem.picard.bam \
+      RGID=03 \
+      RGLB=lib1 \
+      RGPL=illumina \
+      RGPU=unit1 \
       RGSM=sample3
 
 
-java -jar picard.jar AddOrReplaceReadGroups \ 
-      I=${BAM}4_sample.mem.bam \ 
-      O=${BAM}4_sample.mem.picard.bam \ 
-      RGID=04 \ 
-      RGLB=lib1 \ 
-      RGPL=illumina \ 
-      RGPU=unit1 \ 
+java -jar picard.jar AddOrReplaceReadGroups \
+      I=${BAM}4_sample.mem.bam \
+      O=${BAM}4_sample.mem.picard.bam \
+      RGID=04 \
+      RGLB=lib1 \
+      RGPL=illumina \
+      RGPU=unit1 \
       RGSM=sample4
 
-java -jar picard.jar picard AddOrReplaceReadGroups \ 
-      I=${BAM}5_sample.mem.bam \ 
-      O=${BAM}5_sample.mem.picard.bam \ 
-      RGID=05 \ 
-      RGLB=lib1 \ 
-      RGPL=illumina \ 
-      RGPU=unit1 \ 
+java -jar picard.jar AddOrReplaceReadGroups \
+      I=${BAM}5_sample.mem.bam \
+      O=${BAM}5_sample.mem.picard.bam \
+      RGID=05 \
+      RGLB=lib1 \
+      RGPL=illumina \
+      RGPU=unit1 \
       RGSM=sample5
 
 
@@ -136,11 +136,11 @@ samtools mpileup -f ${REF} ${BAM}4_sample.mem.sorted.rmdup.bam > ${MPILEUP}4_sam
 samtools mpileup -f ${REF} ${BAM}5_sample.mem.sorted.rmdup.bam > ${MPILEUP}5_sample.mpileup
 
 # 6b. Samtools mpileup: Chamada de Variantes com todas as amostras
-samtools mpileup -f ${REF} \ 
-                    ${BAM}1_sample.mem.sorted.rmdup.bam \ 
-                    ${BAM}3_sample.mem.sorted.rmdup.bam \ 
-                    ${BAM}4_sample.mem.sorted.rmdup.bam \ 
-                    ${BAM}5_sample.mem.sorted.rmdup.bam \ 
+samtools mpileup -f ${REF} \
+                    ${BAM}1_sample.mem.sorted.rmdup.bam \
+                    ${BAM}3_sample.mem.sorted.rmdup.bam \
+                    ${BAM}4_sample.mem.sorted.rmdup.bam \
+                    ${BAM}5_sample.mem.sorted.rmdup.bam \
                     > ${MPILEUP}allSamples.mpileup 
 
 ## 7. VarScan
