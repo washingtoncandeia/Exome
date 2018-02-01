@@ -23,7 +23,7 @@ BAM=/scratch/global/wcdaraujo/exome/bam/
 
 # Picard tools: AddOrReplaceReadGroups
 java -jar picard.jar AddOrReplaceReadGroups \
-      I=${BAM}1_sample.mem.sam \
+      I=${SAM}1_sample.mem.sam \
       O=${BAM}1_sample.mem.picard.bam \
       RGID="Sample1" \
       RGLB="lib1" \
@@ -33,7 +33,7 @@ java -jar picard.jar AddOrReplaceReadGroups \
       
 
 java -jar picard.jar AddOrReplaceReadGroups \
-      I=${BAM}3_sample.mem.sam \
+      I=${S*+9AM}3_sample.mem.sam \
       O=${BAM}3_sample.mem.picard.bam \
       RGID="Sample3" \
       RGLB="lib3" \
@@ -43,7 +43,7 @@ java -jar picard.jar AddOrReplaceReadGroups \
       
 
 java -jar picard.jar AddOrReplaceReadGroups \
-      I=${BAM}4_sample.mem.sam \
+      I=${SAM}4_sample.mem.sam \
       O=${BAM}4_sample.mem.picard.bam \
       RGID="Sample4" \
       RGLB="lib4" \
@@ -53,7 +53,7 @@ java -jar picard.jar AddOrReplaceReadGroups \
       
 
 java -jar picard.jar AddOrReplaceReadGroups \
-      I=${BAM}5_sample.mem.sam \
+      I=${SAM}5_sample.mem.sam \
       O=${BAM}5_sample.mem.picard.bam \
       RGID="Sample5" \
       RGLB="lib5" \
