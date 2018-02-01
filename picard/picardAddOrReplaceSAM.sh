@@ -33,7 +33,7 @@ java -jar picard.jar AddOrReplaceReadGroups \
       
 
 java -jar picard.jar AddOrReplaceReadGroups \
-      I=${S*+9AM}3_sample.mem.sam \
+      I=${SAM}3_sample.mem.sam \
       O=${BAM}3_sample.mem.picard.bam \
       RGID="Sample3" \
       RGLB="lib3" \
