@@ -118,7 +118,8 @@ samtools mpileup -f ${REF} \
                     ${BAM}1_sample.mem.sorted.bam \
                     ${BAM}3_sample.mem.sorted.bam \
                     ${BAM}4_sample.mem.sorted.bam \
-                    ${BAM}5_sample.mem.sorted.bam | java -jar VarScan.v2.4.3.jar mpileup2snp --output-vcf 1 --strand-filter 0 > ${VCF}allSamples.vcf
+                    ${BAM}5_sample.mem.sorted.bam \
+                    | java -jar VarScan.v2.4.3.jar mpileup2snp --output-vcf 1 --strand-filter 0 > ${VCF}allSamples.vcf
                    
                    
 # 6. snpEff - Preditor
