@@ -33,7 +33,7 @@ VCF=/scratch/global/wcdaraujo/exome/vcf/
 VARIANT=/scratch/global/wcdaraujo/exome/variantCalling/
 
 # 1. Indexar genoma de referência no formato FASTA
-#bwa index -a bwtsw ${REF}
+bwa index -a bwtsw ${REF}
 
 # 2. Alinhar com BWA mem
 bwa mem -t 64 ${REF} ${SAMPLE1}1_R1.fastq.gz ${SAMPLE1}1_R2.fastq.gz | samtools view -h -b -S -F4 - > ${BAM}1_sample.mem.bam
@@ -50,7 +50,7 @@ bwa mem -t 64 ${REF} ${SAMPLE5}5_R1.fastq.gz ${SAMPLE5}5_R2.fastq.gz | samtools 
 ## Chamada de Variantes com Samtools ##
 
 # 1. Samtools faidx
-#samtools faidx ${REF} 
+samtools faidx ${REF} 
 
 
 #2. Picard tools: AddOrReplaceReadGroups
