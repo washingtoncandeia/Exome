@@ -6,7 +6,7 @@
 ##SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=32
 #SBATCH --hint=compute_bound
-#SBATCH --time=12-0:0
+#SBATCH --time=7-0:0
 
 ##-------------------------------------------------
 # Indexação do genoma de referência e alinhamentos
@@ -19,20 +19,19 @@ set -euo pipefail
 
 # Variaveis 
 
-# Variaveis ambientais
-REF=/scratch/local/wcdaraujo/Homo_sapiens.GRCh38.dna.fa
+REF=/home/wcdaraujo/ref/Homo_sapiens.GRCh38.dna.fa
 
-SAMPLE1_R1=/scratch/local/wcdaraujo/samples/1sample/1_AL201_20171106000_S1_L006_R1_001.fastq.gz
-SAMPLE1_R2=/scratch/local/wcdaraujo/samples/1sample/1_AL201_20171106000_S1_L006_R2_001.fastq.gz
+SAMPLE1_R1=/home/local/samples/1sample/1_AL201_20171106000_S1_L006_R1_001.fastq.gz
+SAMPLE1_R2=/home/local/samples/1sample/1_AL201_20171106000_S1_L006_R2_001.fastq.gz
 
-SAMPLE3_R1=/scratch/local/wcdaraujo/samples/3sample/3_AL208_20171106000_S2_L006_R1_001.fastq.gz
-SAMPLE3_R2=/scratch/local/wcdaraujo/samples/3sample/3_AL208_20171106000_S2_L006_R2_001.fastq.gz
+SAMPLE3_R1=/home/local/samples/3sample/3_AL208_20171106000_S2_L006_R1_001.fastq.gz
+SAMPLE3_R2=/home/local/samples/3sample/3_AL208_20171106000_S2_L006_R2_001.fastq.gz
 
-SAMPLE4_R1=/scratch/local/wcdaraujo/samples/4sample/4_SA002_20171106000_S3_L006_R1_001.fastq.gz
-SAMPLE4_R2=/scratch/local/wcdaraujo/samples/4sample/4_SA002_20171106000_S3_L006_R2_001.fastq.gz
+SAMPLE4_R1=/home/local/samples/4sample/4_SA002_20171106000_S3_L006_R1_001.fastq.gz
+SAMPLE4_R2=/home/local/samples/4sample/4_SA002_20171106000_S3_L006_R2_001.fastq.gz
 
-SAMPLE5_R1=/scratch/local/wcdaraujo/samples/5sample/5_SA006_20171106000_S4_L006_R1_001.fastq.gz
-SAMPLE5_R2=/scratch/local/wcdaraujo/samples/5sample/5_SA006_20171106000_S4_L006_R2_001.fastq.gz
+SAMPLE5_R1=/home/local/samples/5sample/5_SA006_20171106000_S4_L006_R1_001.fastq.gz
+SAMPLE5_R2=/home/local/samples/5sample/5_SA006_20171106000_S4_L006_R2_001.fastq.gz
 
 BAM=/home/wcdaraujo/bam/
 MPILEUP=/home/wcdaraujo/mpileup/
@@ -120,7 +119,7 @@ samtools mpileup -f ${REF} \
                     ${BAM}5_sample.mem.sorted.bam \
                     > allSamples.mpileup
                    
-# 6. Samtools mpileup: Chamada de Variantes
+# 6. Samtools mpileup: amostras individuais
 samtools mpileup -f ${REF} ${BAM}1_sample.mem.sorted.bam > ${MPILEUP}1_sample.mpileup
 samtools mpileup -f ${REF} ${BAM}3_sample.mem.sorted.bam > ${MPILEUP}3_sample.mpileup
 samtools mpileup -f ${REF} ${BAM}4_sample.mem.sorted.bam > ${MPILEUP}4_sample.mpileup
