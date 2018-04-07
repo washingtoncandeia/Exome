@@ -21,17 +21,17 @@ set -euo pipefail
 
 REF=/home/wcdaraujo/ref/Homo_sapiens.GRCh38.dna.fa
 
-SAMPLE1_R1=/home/local/samples/1sample/1_AL201_20171106000_S1_L006_R1_001.fastq.gz
-SAMPLE1_R2=/home/local/samples/1sample/1_AL201_20171106000_S1_L006_R2_001.fastq.gz
+SAMPLE1_R1=/home/wcdaraujo/samples/1sample/1_AL201_20171106000_S1_L006_R1_001.fastq.gz
+SAMPLE1_R2=/home/wcdaraujo/samples/1sample/1_AL201_20171106000_S1_L006_R2_001.fastq.gz
 
-SAMPLE3_R1=/home/local/samples/3sample/3_AL208_20171106000_S2_L006_R1_001.fastq.gz
-SAMPLE3_R2=/home/local/samples/3sample/3_AL208_20171106000_S2_L006_R2_001.fastq.gz
+SAMPLE3_R1=/home/wcdaraujo/samples/3sample/3_AL208_20171106000_S2_L006_R1_001.fastq.gz
+SAMPLE3_R2=/home/wcdaraujo/samples/3sample/3_AL208_20171106000_S2_L006_R2_001.fastq.gz
 
-SAMPLE4_R1=/home/local/samples/4sample/4_SA002_20171106000_S3_L006_R1_001.fastq.gz
-SAMPLE4_R2=/home/local/samples/4sample/4_SA002_20171106000_S3_L006_R2_001.fastq.gz
+SAMPLE4_R1=/home/wcdaraujo/samples/4sample/4_SA002_20171106000_S3_L006_R1_001.fastq.gz
+SAMPLE4_R2=/home/wcdaraujo/samples/4sample/4_SA002_20171106000_S3_L006_R2_001.fastq.gz
 
-SAMPLE5_R1=/home/local/samples/5sample/5_SA006_20171106000_S4_L006_R1_001.fastq.gz
-SAMPLE5_R2=/home/local/samples/5sample/5_SA006_20171106000_S4_L006_R2_001.fastq.gz
+SAMPLE5_R1=/home/wcdaraujo/samples/5sample/5_SA006_20171106000_S4_L006_R1_001.fastq.gz
+SAMPLE5_R2=/home/wcdaraujo/samples/5sample/5_SA006_20171106000_S4_L006_R2_001.fastq.gz
 
 BAM=/home/wcdaraujo/bam/
 MPILEUP=/home/wcdaraujo/mpileup/
